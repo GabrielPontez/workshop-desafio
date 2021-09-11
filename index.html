@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Minhas tasks</title>
+</head>
+    <body>
+        <div class="header">
+            <header>
+                <img src="./icon.png" alt="logo">
+            </header>
+        </div>
+        <div class="container">
+            <section class="criaList">
+                <header>
+                    <h1>Lista de Usuários</h1>
+                    <div class="input-group">
+                        <button onclick=viewUsers()>
+                            Mostrar Usuários
+                        </button>
+                        <button onclick=atualizarLista()>
+                            Atualizar
+                        </button>
+                    </div>
+                </header>
+                <div class="seeListsDiv">
+            </section>
+        </div>
+    </body>
+    <script>
+        const seeListsDiv = document.querySelector('.seeListsDiv')
+
+        const seeListsUl = document.createElement('ul')
+        seeListsDiv.appendChild(seeListsUl)
+
+        function clearList() {
+        seeListsUl.innerHTML = ''
+    }
+
+        function atualizarLista() {
+            document.location.reload(true)
+    }
+
+        function viewUsers() {
+            fetch('https://api.randomuser.me/?results=10')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                for(i=0; i < data.list; i++) {
+                const nameList = data.names[i].name
+
+                const seeListsLi = document.createElement('li')
+                seeListsLi.innerText = nameList
+                seeListsUl.appendChild(seeListsLi)
+            }
+        })
+
+    }
+    viewUsers()
+
+    </script>
+</html>
